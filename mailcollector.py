@@ -11,11 +11,11 @@ with open('config.yml','r') as file:
 mailCollector = Collector.Collector(mailConnector)
 
 @app.get("/ping")
-def ping(request: Request):
+def ping(request: Request) -> HTTPResponse:
     return text("pong!")
 
 @app.get("/get")
-async def get(request: Request):
+async def get(request: Request) -> HTTPResponse:
     address = request.args.get("address")
     if address is None:
         return HTTPResponse(body = "address must be provided", status=500)
