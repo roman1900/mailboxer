@@ -1,4 +1,5 @@
 from RedMail import Collector,Connector,Reader
+from RedMail.M365.Parser import M365Parser
 from sanic import Sanic, Request, json
 from sanic.response import HTTPResponse, text
 import yaml
@@ -20,6 +21,6 @@ async def get(request: Request) -> HTTPResponse:
     if address is None:
         return HTTPResponse(body = "address must be provided", status=500)
     mailCollection = await mailCollector.get_delta_by_id(address)
-    reader = Reader.Reader(mailCollection)
-    return json(reader.mail_subject_list())
+    parser = M365Parser(mailCollection)
+    return json(parser.mail_subject_list())
 
