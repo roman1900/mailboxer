@@ -8,14 +8,22 @@ Mailboxer will provide interfaces to:
 
 How to use the Mail Collector:
 Firstly you'll need to publish this as an enterprise app in Azure (Entra ID). You need Mail.ReadAll
+
 This will give you a client id, tenant id, and client secret.
+
 create a config.yml file with:
+```
 client_id: "client_id_from_above"
+
 tenant_id: "tenant_id_from_above"
+
 client_secret: "client_secret_from_above"
+```
 
 Next build the docker image:
+
 docker build . -t mailcollector
+
 docker run -p 5000:5000 mailcollector
 
 point your browser at http://localhost:5000/get
