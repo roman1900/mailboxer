@@ -16,7 +16,10 @@ def ping(request: Request):
 
 @app.get("/get")
 async def get(request: Request):
-    mailCollection = await mailCollector.get_delta_by_id("mmarschall@105patrickstreet.onmicrosoft.com")
+    address = request.args.get("address")
+    if address is None:
+        return HTTPResponse(body = "address must be provided", status=500)
+    mailCollection = await mailCollector.get_delta_by_id(address)
     reader = Reader.Reader(mailCollection)
     return json(reader.mail_subject_list())
 
