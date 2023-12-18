@@ -1,5 +1,6 @@
-from RedMail import Collector,Connector,Reader
+from RedMail import Collector,Reader
 from RedMail.M365.Parser import M365Parser
+from RedMail.M365.Connector import M365Connector
 from sanic import Sanic, Request, json
 from sanic.response import HTTPResponse, text
 import yaml
@@ -8,7 +9,7 @@ app = Sanic(__name__)
 
 with open('config.yml','r') as file:
     config = yaml.safe_load(file)
-    mailConnector = Connector.Connector(config['client_id'],config['tenant_id'],config['client_secret'])
+    mailConnector = M365Connector(config)
 mailCollector = Collector.Collector(mailConnector)
 
 @app.get("/ping")
